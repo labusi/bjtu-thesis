@@ -22,7 +22,6 @@ footskip=0.7cm
 ]{geometry}
 
 
-
 %根据用户选项LoadClass
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \newif\if@isEnMaster\@isEnMasterfalse
@@ -48,9 +47,9 @@ footskip=0.7cm
 \def\BJTU@label@schoolNumber{学校代码:~}
 \def\BJTU@label@classification{密级:~}
 \def\BJTU@label@author{作者姓名:~}
-\def\BJTU@label@studentNumber{学~~~~~~~~号:~}
+\def\BJTU@label@studentNumber{学~~~~~~号:~}
 \def\BJTU@label@advisor{导师姓名:~}
-\def\BJTU@label@advisorTitle{职~~~~~~~~称:~}
+\def\BJTU@label@advisorTitle{职~~~~~~称:~}
 \def\BJTU@label@engineeringMasterField{工程硕士专业领域:~}
 \def\BJTU@label@degreeLevel{学位级别:~}
 \def\BJTU@label@degreeType{学位类别:~}
@@ -65,12 +64,18 @@ footskip=0.7cm
 \def\BJTU@value@advisor{XXXX}
 \def\BJTU@value@advisorTitle{XXXX}
 \def\BJTU@value@engineeringMasterField{XXXX}
-\def\BJTU@value@degreeLevel{硕士/博士}
+\if@isDoctor
+\def\BJTU@value@degreeLevel{博士}
+\else
+\def\BJTU@value@degreeLevel{硕士}
+\fi
 \def\BJTU@value@degreeType{XXXX}
 \def\BJTU@value@major{XXXX}
 \def\BJTU@value@researchArea{XXXX}
 \def\BJTU@value@title{中文题目}
 \def\BJTU@value@englishtitle{英文题目}
+
+
 
 
 %定义用户填写上述标签对应值的命令,需要用户在主文档自行调用
@@ -81,7 +86,6 @@ footskip=0.7cm
 \newcommand\advisor[1]{\def\BJTU@value@advisor{#1}}
 \newcommand\advisorTitle[1]{\def\BJTU@value@advisorTitle{#1}}
 \newcommand\engineeringMasterField[1]{\def\BJTU@value@engineeringMasterField{#1}}
-\newcommand\degreeLevel[1]{\def\BJTU@value@degreeLevel{#1}}
 \newcommand\degreeType[1]{\def\BJTU@value@degreeType{#1}}
 \newcommand\major[1]{\def\BJTU@value@major{#1}}
 \newcommand\researchArea[1]{\def\BJTU@value@researchArea{#1}}
@@ -97,20 +101,24 @@ footskip=0.7cm
 	\hfill
 	{\songti\zihao{5}\BJTU@label@classification\BJTU@value@classification}
 	%这里控制上下间距
+	\vspace{31.5pt}
 	\begin{center}
-		{\kaishu\zihao{0}北京交通大学\\}
+		{\kaishu\zihao{0}北~京~交~通~大~学\\}
 		%这里控制上下间距
 		\if@isDoctor
-		{\songti\zihao{2}博士学位论文\\}
+		{\songti\zihao{2}博~士~学~位~论~文\\}
 		\else
-		{\songti\zihao{2}硕士学位论文\\}
+		{\songti\zihao{2}硕~士~学~位~论~文\\}
 		\fi
 		%这里控制上下间距
+		\vspace{44pt}
 		{\songti\zihao{-3}\BJTU@value@title\\}
 		%这里控制上下间距
+		\vspace{15pt}
 		{\songti\zihao{-3}\BJTU@value@englishtitle\\}
 	\end{center}
 	%这里控制上下间距
+	\vspace{48pt}
 	{\songti\zihao{4}
 		\begin{tabular}{lp{30mm}l}
 			\BJTU@label@author \BJTU@value@author& &\BJTU@label@studentNumber \BJTU@value@studentNumber \\
@@ -127,6 +135,10 @@ footskip=0.7cm
 			\fi
 		\end{tabular}
 	}
+	\vfill
+	\begin{center}
+		{\songti\zihao{4}北京交通大学\\ \vspace{10pt}2018年4月}
+	\end{center}
 }
 
 
