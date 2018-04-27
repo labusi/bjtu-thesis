@@ -6,21 +6,11 @@
 \RequirePackage{amsmath,amsthm,amsfonts,amssymb,bm,mathrsfs,upgreek}
 \usepackage{fancyhdr}
 
+
 %依赖的Latex版本
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 %声明本文档为模板类
 \ProvidesClass{BJTU-Thesis}[2018/4/27]
-
-%设置页面
-\usepackage[%
-paper=a4paper,
-top=3cm,%
-bottom=2.5cm,
-left=2.5cm,
-right=2.5cm,
-headheight=1.0cm,
-footskip=0.7cm
-]{geometry}
 
 
 %根据用户选项LoadClass
@@ -35,6 +25,7 @@ footskip=0.7cm
 \DeclareOption{AcMaster}{\@isAcMastertrue}
 %博士
 \DeclareOption{Doctor}{\@isDoctortrue}
+\DeclareOption{twoside}{\@isTwoSidetrue}
 \ProcessOptions\relax
 \if@isTwoSide
 \LoadClass[zihao=-4,a4paper,twoside,openright,UTF8,space=auto]{ctexbook}
@@ -126,13 +117,12 @@ footskip=0.7cm
 			\\
 			\BJTU@label@advisor \BJTU@value@advisor& &\BJTU@label@advisorTitle \BJTU@value@advisorTitle \\
 			\\
-			\if@isAcMaster
+			\if@isEnMaster
+			\BJTU@label@engineeringMasterField \BJTU@value@engineeringMasterField& &\BJTU@label@degreeLevel \BJTU@value@degreeLevel \\
+			\else
 			\BJTU@label@degreeType \BJTU@value@degreeType& &\BJTU@label@degreeLevel \BJTU@value@degreeLevel \\
 			\\
 			\BJTU@label@major \BJTU@value@major& &\BJTU@label@researchArea \BJTU@value@researchArea \\
-			\fi
-			\if@isEnMaster
-			\BJTU@label@engineeringMasterField \BJTU@value@engineeringMasterField& &\BJTU@label@degreeLevel \BJTU@value@degreeLevel \\
 			\fi
 		\end{tabular}
 	}
@@ -157,10 +147,18 @@ footskip=0.7cm
 	\fancyfoot[C]{\thepage}
 }
 
+%%设置页边距和装订线
+\usepackage[
+top=3.5cm,
+bottom=2.5cm,
+left=2.5cm,
+right=2.5cm,
+bindingoffset=1cm
+]{geometry}
 
 %% 设置章节格式
 \ctexset{chapter={
-		name = {第,章},
+		name={},
 		number = {\arabic{chapter}},
 		format = {\heiti \centering \zihao{3}},
 		pagestyle = {BJTU@heading},
@@ -169,74 +167,8 @@ footskip=0.7cm
 		fixskip = true,
 	}
 }
-%% 设置一级章节格式
-\ctexset{section={
-		format={\heiti \raggedright \bfseries \sffamily \zihao{4}},
-		beforeskip = 28bp plus 1ex minus .2ex,
-		afterskip = 24bp plus .2ex,
-		fixskip = true,
-	}
-}
-
-% 设置二级标题格式
-
-%黑体小四加粗顶左，单倍行距，序号与题目间空一个汉字符
-
-\ctexset{subsection={
-		format = {\bfseries \sffamily \raggedright \zihao{-4}},
-		beforeskip =28bp plus 1ex minus .2ex,
-		afterskip = 24bp plus .2ex,
-		fixskip = true,
-	}
-}
-
-% 设置三节标题格式：黑体小四居左书写，单倍行距，序号与题目间空一个汉字符
-
-\ctexset{subsubsection={
-		format={\heiti \raggedright \zihao{-4}},
-		beforeskip=28bp plus 1ex minus .2ex,
-		afterskip=24bp plus .2ex,
-		fixskip=true,
-	}
-}
 
 \pagestyle{BJTU@heading}
-
-\renewenvironment{thanks}{
-	\newpage
-	\chapter*{致谢}
-	\thispagestyle{plain}
-}{}
-
-\newenvironment{abstract}{
-	\newpage
-	\chapter*{摘要}
-	\mynewpagestyle{摘要}
-	\addcontentsline{toc}{chapter}{摘要}
-}{}
-
-
-\newcommand{\mynewpagestyle}[1]{
-	\fancyhf{}
-	\fancyhead[L]{
-		\if@isDoctor
-		北京交通大学博士学位论文
-		\else
-		北京交通大学硕士学位论文
-		\fi
-	}
-	\fancyhead[R]{#1}
-	\fancyfoot[C]{\thepage}
-}
-
-
-
-
-
-
-
-
-
 
 
 
