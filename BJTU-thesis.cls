@@ -4,6 +4,7 @@
 
 %导入需要的宏包
 \RequirePackage{amsmath,amsthm,amsfonts,amssymb,bm,mathrsfs,upgreek}
+\usepackage{fancyhdr}
 
 %依赖的Latex版本
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
@@ -142,16 +143,91 @@ footskip=0.7cm
 }
 
 
+%%定义正文的页眉页脚格式
+\fancypagestyle{BJTU@heading}{
+	\fancyhf{}
+	\fancyhead[L]{
+		\if@isDoctor
+		北京交通大学博士学位论文
+		\else
+		北京交通大学硕士学位论文
+		\fi
+	}
+	\fancyhead[R]{\leftmark}
+	\fancyfoot[C]{\thepage}
+}
 
 
+%% 设置章节格式
+\ctexset{chapter={
+		name = {第,章},
+		number = {\arabic{chapter}},
+		format = {\heiti \centering \zihao{3}},
+		pagestyle = {BJTU@heading},
+		beforeskip = 16bp,
+		afterskip = 28bp,
+		fixskip = true,
+	}
+}
+%% 设置一级章节格式
+\ctexset{section={
+		format={\heiti \raggedright \bfseries \sffamily \zihao{4}},
+		beforeskip = 28bp plus 1ex minus .2ex,
+		afterskip = 24bp plus .2ex,
+		fixskip = true,
+	}
+}
+
+% 设置二级标题格式
+
+%黑体小四加粗顶左，单倍行距，序号与题目间空一个汉字符
+
+\ctexset{subsection={
+		format = {\bfseries \sffamily \raggedright \zihao{-4}},
+		beforeskip =28bp plus 1ex minus .2ex,
+		afterskip = 24bp plus .2ex,
+		fixskip = true,
+	}
+}
+
+% 设置三节标题格式：黑体小四居左书写，单倍行距，序号与题目间空一个汉字符
+
+\ctexset{subsubsection={
+		format={\heiti \raggedright \zihao{-4}},
+		beforeskip=28bp plus 1ex minus .2ex,
+		afterskip=24bp plus .2ex,
+		fixskip=true,
+	}
+}
+
+\pagestyle{BJTU@heading}
+
+\renewenvironment{thanks}{
+	\newpage
+	\chapter*{致谢}
+	\thispagestyle{plain}
+}{}
+
+\newenvironment{abstract}{
+	\newpage
+	\chapter*{摘要}
+	\mynewpagestyle{摘要}
+	\addcontentsline{toc}{chapter}{摘要}
+}{}
 
 
-
-
-
-
-
-
+\newcommand{\mynewpagestyle}[1]{
+	\fancyhf{}
+	\fancyhead[L]{
+		\if@isDoctor
+		北京交通大学博士学位论文
+		\else
+		北京交通大学硕士学位论文
+		\fi
+	}
+	\fancyhead[R]{#1}
+	\fancyfoot[C]{\thepage}
+}
 
 
 
