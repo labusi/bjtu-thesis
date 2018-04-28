@@ -10,7 +10,7 @@
 %依赖的Latex版本
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 %声明本文档为模板类
-\ProvidesClass{BJTU-Thesis}[2018/4/27]
+\ProvidesClass{BJTU-thesis}[2018/4/27]
 
 
 %根据用户选项LoadClass
@@ -161,21 +161,20 @@
 %%页眉部分加章标题的问题尚未解决
 \newenvironment{abstract}{
 	\chapter*{摘要}
-	\@mkboth{摘要}{摘要}
+	\markboth{摘要}{摘要}
 	\addcontentsline{toc}{chapter}{摘要}
 }{}
 
 %定义英文摘要环境
 \newenvironment{englishabstract}{
 	\chapter*{ABSTRACT}
-	\@mkboth{ABSTRACT}{ABSTRACT}
-	
+	\markboth{ABSTRACT}{ABSTRACT}
 	\addcontentsline{toc}{chapter}{ABSTRACT}
 }{}
 
+%定义中英文关键词命令
 \newcommand{\keywords}[1]{\textbf{关键词：}#1}
 \newcommand{\englishkeywords}[1]{\textbf{KEYWORDS:~}#1}
-\newcommand{\bjtuchapter}[1]{\chapter{#1}\markboth{#1}{}}
 
 
 
@@ -212,11 +211,43 @@ headheight=15pt
 		number = {\arabic{chapter}},
 		format = {\heiti \centering \zihao{3}},
 		pagestyle = {BJTU@heading},
-		beforeskip = 16bp,
-		afterskip = 28bp,
+		beforeskip = 28bp,
+		afterskip = 20bp,
 		fixskip = true,
 	}
 }
+
+%% 设置一级章节格式
+\ctexset{section={
+		format={\raggedright \bfseries \sffamily \zihao{4}},
+		beforeskip = 28bp plus 1ex minus .2ex,
+		afterskip = 24bp plus .2ex,
+		fixskip = true,
+	}
+}
+
+% 设置二级标题格式
+
+%黑体小四加粗顶左，单倍行距，序号与题目间空一个汉字符
+
+\ctexset{subsection={
+		format = {\bfseries \sffamily \raggedright \zihao{-4}},
+		beforeskip =28bp plus 1ex minus .2ex,
+		afterskip = 24bp plus .2ex,
+		fixskip = true,
+	}
+}
+
+% 设置三节标题格式：黑体小四居左书写，单倍行距，序号与题目间空一个汉字符
+
+\ctexset{subsubsection={
+		format={\heiti \raggedright \zihao{-4}},
+		beforeskip=28bp plus 1ex minus .2ex,
+		afterskip=24bp plus .2ex,
+		fixskip=true,
+	}
+}
+
 
 %目录
 \ifxetex  % xelatex
@@ -237,7 +268,7 @@ headheight=15pt
 \fi
 \fi
 
-\addtocontents{toc}{\protect\hypersetup{hidelinks}}
+%\addtocontents{toc}{\protect\hypersetup{hidelinks}}
 \addtocontents{lot}{\protect\hypersetup{hidelinks}}
 \addtocontents{lof}{\protect\hypersetup{hidelinks}}
 
@@ -267,7 +298,16 @@ headheight=15pt
 	\@starttoc{toc}%
 }
 
+
+
+%设定文档页眉页脚
 \pagestyle{BJTU@heading}
+%必须在设置完文档的页眉页脚格式之后再重定义此命令
+\renewcommand{\chaptermark}[1]{
+	\markboth{#1}{}
+}
+
+
 
 
 \endinput
