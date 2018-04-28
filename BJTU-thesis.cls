@@ -4,7 +4,7 @@
 
 %导入需要的宏包
 \RequirePackage{amsmath,amsthm,amsfonts,amssymb,bm,mathrsfs,upgreek}
-\usepackage{fancyhdr}
+\RequirePackage{fancyhdr}
 
 
 %依赖的Latex版本
@@ -85,6 +85,23 @@
 \renewcommand\title[1]{\def\BJTU@value@title{#1}}
 
 
+%版权授权书
+\newcommand{\makeAuthorization}{
+	\chapter*{学位论文版权使用授权书}
+	\thispagestyle{empty}
+	本学位论文作者完全了解北京交通大学有关保留、使用学位论文的规定。特授权北京交通大学可以将学位论文的全部或部分内容编入有关数据库进行检索，提供阅览服务，并采用影印、缩印或扫描等复制手段保存、汇编以供查阅和借阅。同意学校向国家有关部门或机构送交论文的复印件和磁盘。学校可以为存在馆际合作关系的兄弟高校用户提供文献传递服务和交换服务。
+	
+	（保密的学位论文在解密后适用本授权说明）
+	
+	\vspace{72pt}
+	学位论文作者签名：~~~~~~~~~~~~~~~~~~~~~~~导师签名：
+	
+	\vspace{12pt}
+	签字日期：~~~~~~年~~~月~~~日~~~~~~~~~~~~~~签字日期：~~~~~年~~~月~~~日 
+}
+
+
+%制作内封
 \newcommand{\makeInfo}{
 	\newpage
 	\pagenumbering{roman}
@@ -133,6 +150,31 @@
 }
 
 
+%重新定义致谢环境
+\renewenvironment{thanks}{
+	\chapter*{致谢}\thispagestyle{empty}
+}{}
+
+
+
+%定义中文摘要环境
+%%页眉部分加章标题的问题尚未解决
+\newenvironment{abstract}{
+	\chapter*{摘要}
+	\addcontentsline{toc}{chapter}{摘要}
+}{}
+
+%定义英文摘要环境
+\newenvironment{englishabstract}{
+	\chapter*{ABSTRACT}
+	\addcontentsline{toc}{chapter}{ABSTRACT}
+}{}
+
+\newcommand{\keywords}[1]{\noindent\textbf{关键词：}#1}
+\newcommand{\englishkeywords}[1]{\noindent\textbf{KEYWORDS:~}#1}
+
+\renewcommand{\chaptermark}[1]{\markboth{第\arabic{chapter}章\quad  #1 }{}}
+
 %%定义正文的页眉页脚格式
 \fancypagestyle{BJTU@heading}{
 	\fancyhf{}
@@ -153,7 +195,8 @@ top=3.5cm,
 bottom=2.5cm,
 left=2.5cm,
 right=2.5cm,
-bindingoffset=1cm
+bindingoffset=1cm,
+headheight=15pt
 ]{geometry}
 
 %% 设置章节格式
@@ -168,8 +211,62 @@ bindingoffset=1cm
 	}
 }
 
-\pagestyle{BJTU@heading}
+%目录
+\ifxetex  % xelatex
+\RequirePackage[xetex]{hyperref}
+\hypersetup{
+	bookmarksnumbered,
+	colorlinks,
+	linkcolor=black,
+	citecolor=black,
+	plainpages=false,
+	pdfstartview=FitH
+}
+\else
+\ifpdf
+\RequirePackage[pdftex,unicode]{hyperref}
+\else
+\RequirePackage[dvipdfmx,unicode]{hyperref}
+\fi
+\fi
 
+\addtocontents{toc}{\protect\hypersetup{hidelinks}}
+\addtocontents{lot}{\protect\hypersetup{hidelinks}}
+\addtocontents{lof}{\protect\hypersetup{hidelinks}}
+
+\RequirePackage{titletoc}
+\titlecontents{chapter}[0pt]{\songti \zihao{4}}
+{\thecontentslabel\hspace{\ccwd}}{}
+{\hspace{.5em}\titlerule*{.}\contentspage}
+\titlecontents{section}[2\ccwd]{\songti \zihao{-4}}
+{\thecontentslabel\hspace{\ccwd}}{}
+{\hspace{.5em}\titlerule*{.}\contentspage}
+\titlecontents{subsection}[4\ccwd]{\songti \zihao{-4}}
+{\thecontentslabel\hspace{\ccwd}}{}
+{\hspace{.5em}\titlerule*{.}\contentspage}
+
+\titlecontents{figure}[0pt]{\songti\zihao{-4}}
+{\figurename~\thecontentslabel\quad}{\hspace*{-1.5cm}}
+{\hspace{.5em}\titlerule*{.}\contentspage}
+
+\titlecontents{table}[0pt]{\songti\zihao{-4}}
+{\tablename~\thecontentslabel\quad}{\hspace*{-1.5cm}}
+{\hspace{.5em}\titlerule*{.}\contentspage}
+
+\renewcommand\tableofcontents{%
+	\if@twocolumn
+	\@restonecoltrue\onecolumn
+	\else
+	\@restonecolfalse
+	\fi
+	\chapter*{\contentsname}%目录里显示“目录”，否则\chapter*
+	\@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}%
+	\pdfbookmark[0]{目录}{bittoc}
+	\@starttoc{toc}%
+	\if@restonecol\twocolumn\fi
+}
+
+\pagestyle{BJTU@heading}
 
 
 
