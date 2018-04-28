@@ -152,7 +152,7 @@
 
 %重新定义致谢环境
 \renewenvironment{thanks}{
-	\chapter*{致谢}\thispagestyle{empty}
+	\chapter*{致谢}\thispagestyle{plain}
 }{}
 
 
@@ -169,13 +169,15 @@
 \newenvironment{englishabstract}{
 	\chapter*{ABSTRACT}
 	\@mkboth{ABSTRACT}{ABSTRACT}
+	
 	\addcontentsline{toc}{chapter}{ABSTRACT}
 }{}
 
-\newcommand{\keywords}[1]{\noindent\textbf{关键词：}#1}
-\newcommand{\englishkeywords}[1]{\noindent\textbf{KEYWORDS:~}#1}
+\newcommand{\keywords}[1]{\textbf{关键词：}#1}
+\newcommand{\englishkeywords}[1]{\textbf{KEYWORDS:~}#1}
+\newcommand{\bjtuchapter}[1]{\chapter{#1}\markboth{#1}{}}
 
-\renewcommand{\chaptermark}[1]{\markboth{第\arabic{chapter}章\quad  #1 }{}}
+
 
 %%定义正文的页眉页脚格式
 \def\BJTU@chapter{}
@@ -191,6 +193,7 @@
 	\fancyhead[R]{\leftmark}
 	\fancyfoot[C]{\thepage}
 }
+
 
 
 %%设置页边距和装订线
@@ -258,27 +261,13 @@ headheight=15pt
 {\hspace{.5em}\titlerule*{.}\contentspage}
 
 \renewcommand\tableofcontents{%
-	\if@twocolumn
-	\@restonecoltrue\onecolumn
-	\else
-	\@restonecolfalse
-	\fi
 	\chapter*{\contentsname}%目录里显示“目录”，否则\chapter*
 	\@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}%
 	\pdfbookmark[0]{目录}{bittoc}
 	\@starttoc{toc}%
-	\if@restonecol\twocolumn\fi
 }
 
 \pagestyle{BJTU@heading}
-
-
-
-
-
-
-
-
 
 
 \endinput

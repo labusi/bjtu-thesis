@@ -11,7 +11,7 @@
 \title{题目}
 \englishtitle{Title}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\setmainfont{Times New Roman}
 
 \begin{document}
 	\makeAuthorization
@@ -20,8 +20,9 @@
 	\include{chapters/abstract}
 	\include{chapters/englishabstract}
 	\tableofcontents
-	\pagenumbering{arabic}
-	\chapter{引言}
+	\newpage\pagenumbering{arabic}
+	\bjtuchapter{引言}
+	\markboth{引言}{引言}
 	引言内容。
 \end{document}
 
