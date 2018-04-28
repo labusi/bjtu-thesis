@@ -161,12 +161,14 @@
 %%页眉部分加章标题的问题尚未解决
 \newenvironment{abstract}{
 	\chapter*{摘要}
+	\@mkboth{摘要}{摘要}
 	\addcontentsline{toc}{chapter}{摘要}
 }{}
 
 %定义英文摘要环境
 \newenvironment{englishabstract}{
 	\chapter*{ABSTRACT}
+	\@mkboth{ABSTRACT}{ABSTRACT}
 	\addcontentsline{toc}{chapter}{ABSTRACT}
 }{}
 
@@ -176,6 +178,7 @@
 \renewcommand{\chaptermark}[1]{\markboth{第\arabic{chapter}章\quad  #1 }{}}
 
 %%定义正文的页眉页脚格式
+\def\BJTU@chapter{}
 \fancypagestyle{BJTU@heading}{
 	\fancyhf{}
 	\fancyhead[L]{
@@ -188,6 +191,7 @@
 	\fancyhead[R]{\leftmark}
 	\fancyfoot[C]{\thepage}
 }
+
 
 %%设置页边距和装订线
 \usepackage[
