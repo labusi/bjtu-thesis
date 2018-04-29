@@ -308,6 +308,172 @@ headheight=15pt
 }
 
 
+%%定义制作论文封面命令
+\newcommand{\makecover}{
+	\newpage\thispagestyle{empty}
+	\vspace{50pt}
+	\begin{figure}
+		\centering
+		\includegraphics*[]{logo.png}
+	\end{figure}
+	\vspace{18pt}
+	\begin{center}
+		\if@isDoctor
+		{\songti\zihao{2}\bfseries{博士学位论文\\}}
+		\else
+		{\songti\zihao{2}\bfseries{硕士学位论文\\}}		
+		\fi
+		\vspace{44pt}
+		{\songti\zihao{-3}\BJTU@value@title\\}
+		\vspace{18pt}
+		{\zihao{-3}\BJTU@value@englishtitle\\}
+		\vspace{90pt}
+		\begin{tabular}{l}
+			{\songti\zihao{4}作者：\BJTU@value@author}\\
+			\\
+			{\songti\zihao{4}导师：\BJTU@value@advisor}\\
+		\end{tabular}
+		\\
+		\vspace{120pt}
+		{\songti\zihao{4}北京交通大学\\\vspace{14pt}2018年4月}
+	\end{center}
+}
+
+
+%% graphics packages
+\RequirePackage{graphicx}
+%% 并列子图
+\RequirePackage{subfigure}
+
+\RequirePackage{wrapfig}
+%%===========================设置图表标题选项==========================
+\RequirePackage{amsmath}
+\RequirePackage{caption}
+\DeclareCaptionLabelSeparator{zhspace}{\hspace{1\ccwd}}
+\DeclareCaptionFont{fontsize}{\zihao{5}}
+\captionsetup{
+	font = {fontsize},
+	labelsep = zhspace,
+}
+\captionsetup[table]{
+	position = top,
+	aboveskip = 6bp,
+	belowskip = 6bp,
+}
+\numberwithin{table}{chapter}
+\captionsetup[figure]{
+	position = bottom,
+	aboveskip = 6bp,
+	belowskip = 6bp,
+}
+
+%% 如果插入的图片没有指定扩展名，那么依次搜索下面的扩展名所对应的文件
+\DeclareGraphicsExtensions{.pdf,.eps,.png,.jpg,.jpeg}
+% ccaption -- bicaption
+%\RequirePackage{ccaption}
+%\captiondelim{\ }
+%\captionnamefont{\songti\zihao{5}}
+%\captiontitlefont{\songti\zihao{5}}
+
+
+%% sort and compress citations
+\RequirePackage[numbers,square,comma,super,sort&compress]{natbib}
+% 上标引用
+\newcommand{\upcite}[1]{\textsuperscript{\cite{#1}}}
+
+
+% 将浮动参数设为较宽松的值
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.65}
+\renewcommand{\floatpagefraction}{0.60}
+
+
+% 定公式、图、表编号为"3-1"的形式，即分隔符由.变为短杠
+\renewcommand\theequation{\arabic{chapter}.\arabic{equation}}
+\renewcommand\thefigure{\arabic{chapter}.\arabic{figure}}
+\renewcommand\thetable{\arabic{chapter}.\arabic{table}}
+
+% 颜色宏包
+\RequirePackage{xcolor}
+
+
+% 中文破折号
+\newcommand{\cndash}{\rule{0.0em}{0pt}\rule[0.35em]{1.4em}{0.05em}\rule{0.2em}{0pt}}
+
+% listings 源代码显示宏包
+\RequirePackage{listings}
+\lstset{tabsize=4, %
+	frame=shadowbox, %把代码用带有阴影的框圈起来
+	commentstyle=\color{red!50!green!50!blue!50},%浅灰色的注释
+	rulesepcolor=\color{red!20!green!20!blue!20},%代码块边框为淡青色
+	keywordstyle=\color{blue!90}\bfseries, %代码关键字的颜色为蓝色，粗体
+	showstringspaces=false,%不显示代码字符串中间的空格标记
+	stringstyle=\ttfamily, % 代码字符串的特殊格式
+	keepspaces=true, %
+	breakindent=22pt, %
+	numbers=left,%左侧显示行号
+	stepnumber=1,%
+	numberstyle=\tiny, %行号字体用小号
+	basicstyle=\footnotesize, %
+	showspaces=false, %
+	flexiblecolumns=true, %
+	breaklines=true, %对过长的代码自动换行
+	breakautoindent=true,%
+	breakindent=4em, %
+	aboveskip=1em, %代码块边框
+	%% added by http://bbs.ctex.org/viewthread.php?tid=53451
+	fontadjust,
+	captionpos=t,
+	framextopmargin=2pt,framexbottommargin=2pt,abovecaptionskip=-3pt,belowcaptionskip=3pt,
+	xleftmargin=4em,xrightmargin=4em, % 设定listing左右的空白
+	texcl=true,
+	% 设定中文冲突，断行，列模式，数学环境输入，listing数字的样式
+	extendedchars=false,columns=flexible,mathescape=true
+	numbersep=-1em
+}
+\renewcommand{\lstlistingname}{代码} %% 重命名Listings标题头
+
+%% enumerate 列表环境间距调节
+\usepackage{enumitem}
+% \setenumerate[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}
+% \setitemize[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=0pt}
+% \setdescription{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}
+
+%_  参考文献风格 added by wei.jianwen@gmail.com
+\bibliographystyle{GBT7714-2005NLang}
+
+%_ 参考文献环境
+\renewenvironment{thebibliography}[1]
+{\zihao{5}
+	\chapter*{\bibname}
+	\@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
+	\addcontentsline{toc}{chapter}{参考文献}
+	\list{\@biblabel{\@arabic\c@enumiv}}%
+	{\settowidth\labelwidth{\@biblabel{#1}}%
+		\leftmargin\labelwidth
+		\advance\leftmargin\labelsep
+		\setlength{\parsep}{1mm}
+		\setlength{\labelsep}{0.5em}
+		\setlength{\itemsep}{0.05pc}
+		\setlength{\listparindent}{0in}
+		\setlength{\itemindent}{0in}
+		\setlength{\rightmargin}{0in}
+		\@openbib@code
+		\usecounter{enumiv}%
+		\let\p@enumiv\@empty
+		\renewcommand\theenumiv{\@arabic\c@enumiv}}%
+	\sloppy
+	\clubpenalty4000
+	\@clubpenalty \clubpenalty
+	\widowpenalty4000%
+	\sfcode`\.\@m}
+{\def\@noitemerr
+	{\@latex@warning{Empty `thebibliography' environment}}%
+	\endlist}
+
+
+
 
 
 \endinput

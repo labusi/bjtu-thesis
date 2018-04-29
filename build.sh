@@ -1,1 +1,1 @@
-rm *.aux *.log *.toc *.synctex.gz *.out chapters/*.aux
+rm *.aux *.log *.toc *.synctex.gz *.out chapters/*.aux *.bbl *.blg
